@@ -10,13 +10,26 @@ datasource db {
   url      = env("DATABASE_URL")
 }
 
-model Business {
+model Location {
   id Int @default(autoincrement()) @id
   name String
   description String?
   address String?
   phone String?
   email String?
+  locationType LocationType @default(other)
+
   
   @@unique([name, email])
+
 }
+
+enum LocationType {
+  restaurant
+  bar
+  cafe
+  gym
+  other
+}
+
+
