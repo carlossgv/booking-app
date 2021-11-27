@@ -1,6 +1,6 @@
-import { Location, Prisma } from ".prisma/client";
+import { Location } from ".prisma/client";
 import { Injectable } from "@nestjs/common";
-import { PrismaService } from "src/prisma.service";
+import { PrismaService } from "../prisma.service";
 import { CreateLocationDto } from "./dto/create-location.dto";
 import { UpdateLocationDto } from "./dto/update-location.dto";
 
@@ -21,10 +21,13 @@ export class LocationsService {
   }
 
   update(id: number, updateLocationDto: UpdateLocationDto) {
-    return `This action updates a #${id} location`;
+    return this.prisma.location.update({
+      data: updateLocationDto,
+      where: { id },
+    });
   }
 
   remove(id: number) {
-    return `This action removes a #${id} location`;
+    return this.prisma.location.delete({ where: { id } });
   }
 }

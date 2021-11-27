@@ -10,7 +10,7 @@ import {
 import { LocationsService } from "./locations.service";
 import { CreateLocationDto } from "./dto/create-location.dto";
 import { UpdateLocationDto } from "./dto/update-location.dto";
-import { PrismaService } from "src/prisma.service";
+import { PrismaService } from "../prisma.service";
 
 @Controller("locations")
 export class LocationsController {
