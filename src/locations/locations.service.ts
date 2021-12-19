@@ -2,7 +2,7 @@ import { Location } from ".prisma/client";
 import { Injectable } from "@nestjs/common";
 import { PrismaService } from "../prisma.service";
 import { CreateLocationDto } from "./dto/create-location.dto";
-import { UpdateLocationDto } from "./dto/update-location.dto";
+// import { UpdateLocationDto } from "./dto/update-location.dto";
 
 @Injectable()
 export class LocationsService {
@@ -16,18 +16,18 @@ export class LocationsService {
     return this.prisma.location.findMany();
   }
 
-  async findOne(id: number) {
-    return this.prisma.location.findUnique({ where: { id } });
+  async findOne(locationId: number) {
+    return this.prisma.location.findUnique({ where: { locationId } });
   }
 
-  update(id: number, updateLocationDto: UpdateLocationDto) {
-    return this.prisma.location.update({
-      data: updateLocationDto,
-      where: { id },
-    });
-  }
+  // update(locationId: number, updateLocationDto: UpdateLocationDto) {
+  //   return this.prisma.location.update({
+  //     data: updateLocationDto,
+  //     where: { locationId },
+  //   });
+  // }
 
-  remove(id: number) {
-    return this.prisma.location.delete({ where: { id } });
+  remove(locationId: number) {
+    return this.prisma.location.delete({ where: { locationId } });
   }
 }

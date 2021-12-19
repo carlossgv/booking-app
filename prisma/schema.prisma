@@ -11,24 +11,27 @@ datasource db {
 }
 
 model Company {
-  companyId Int     @id @default(autoincrement())
+  companyId Int           @id @default(autoincrement())
   name      String
   address   String?
   email     String?
-  managers  User[]
+  managers  CompanyUser[]
+  locations Location[]
 }
 
 model Location {
-  locationId   Int          @id @default(autoincrement())
-  name         String
-  description  String?
-  address      String?
-  phone        String?
-  email        String?
-  locationType LocationType @default(other)
-  isActive     Boolean      @default(true)
-  userType     UserType
-  schedules    Schedule[]
+  locationId       Int            @id @default(autoincrement())
+  name             String
+  address          String?
+  phone            String?
+  email            String?
+  locationType     LocationType   @default(other)
+  isActive         Boolean        @default(true)
+  userType         UserType       @default(client)
+  schedules        Schedule[]
+  users            LocationUser[]
+  Company          Company        @relation(fields: [companyCompanyId], references: [companyId])
+  companyCompanyId Int
 
   @@unique([name])
 }
@@ -47,26 +50,33 @@ enum UserType {
   guest    @map("Guest")
 }
 
-model User {
-  id               Int           @id @default(autoincrement()) @map("LocationUserId")
-  userId           Int
-  locationId       Int
+model LocationUser {
+  locationUserId     Int           @id @default(autoincrement())
+  userId             Int
+  isActive           Boolean
+  Reservations       Reservation[]
+  Location           Location      @relation(fields: [locationLocationId], references: [locationId])
+  locationLocationId Int
+}
+
+model CompanyUser {
+  companyUserId    Int     @id @default(autoincrement())
+  userId           Int     @unique
   isActive         Boolean
-  Company          Company?      @relation(fields: [companyCompanyId], references: [companyId])
-  companyCompanyId Int?
-  Reservation      Reservation[]
+  Company          Company @relation(fields: [companyCompanyId], references: [companyId])
+  companyCompanyId Int
 }
 
 model Reservation {
-  reservationId      Int       @id @default(autoincrement())
+  reservationId      Int          @id @default(autoincrement())
   date               DateTime
-  createdAt          DateTime  @default(now())
-  updatedAt          DateTime  @updatedAt
+  createdAt          DateTime     @default(now())
+  updatedAt          DateTime     @updatedAt
   locationId         Int
   userLocationUserId Int
-  Schedule           Schedule? @relation(fields: [scheduleScheduleId], references: [scheduleId])
+  Schedule           Schedule?    @relation(fields: [scheduleScheduleId], references: [scheduleId])
   scheduleScheduleId Int?
-  user               User      @relation(fields: [userId], references: [id])
+  user               LocationUser @relation(fields: [userId], references: [locationUserId])
   userId             Int
 }
 

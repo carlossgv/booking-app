@@ -1,4 +1,4 @@
-import { LocationType } from ".prisma/client";
+import { Company, LocationType, UserType } from ".prisma/client";
 
 export class CreateLocationDto {
   name: string;
@@ -7,4 +7,6 @@ export class CreateLocationDto {
   phone?: string;
   email?: string;
   locationType: LocationType;
+  userType: UserType;
+  Company: Company;
 }
