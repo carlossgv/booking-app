@@ -34,13 +34,13 @@ export class LocationsController {
     return this.locationsService.findOne(+id);
   }
 
-  @Patch(":id")
-  update(
-    @Param("id") id: string,
-    @Body() updateLocationDto: UpdateLocationDto,
-  ) {
-    return this.locationsService.update(+id, updateLocationDto);
-  }
+  // @Patch(":id")
+  // update(
+  //   @Param("id") id: string,
+  //   @Body() updateLocationDto: UpdateLocationDto,
+  // ) {
+  //   return this.locationsService.update(+id, updateLocationDto);
+  // }
 
   @Delete(":id")
   delete(@Param("id") id: string) {

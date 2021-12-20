@@ -17,17 +17,17 @@ then
     tmux send-keys -t 'Aux' 'vim' C-m ':q' C-m
 
     tmux new-window -t $SESSION:1 -n 'Front'
-    tmux send-keys -t 'Front' 'cd ~/projects/booking-app/booking-app-front; npm run dev' C-m 
+    tmux send-keys -t 'Front' 'cd ~/projects/booking-app/front-booking-app; npm run dev' C-m 
 
     tmux new-window -t $SESSION:2 -n 'Back'
-    tmux send-keys -t 'Back' 'cd  ~/projects/booking-app/booking-app-back; docker-compose up' C-m 
+    tmux send-keys -t 'Back' 'cd  ~/projects/booking-app/back-booking-app; docker-compose up' C-m 
     tmux splitw -h 
-    tmux send-keys -t 'Back' 'cd  ~/projects/booking-app/booking-app-back; npm run start:dev' C-m 
+    tmux send-keys -t 'Back' 'cd  ~/projects/booking-app/back-booking-app; npm run start:dev' C-m 
 
     tmux new-window -t $SESSION:3 -n 'Auth'
-    tmux send-keys -t 'Auth' 'cd ~/projects/booking-app/booking-app-auth; docker-compose up' C-m 
+    tmux send-keys -t 'Auth' 'cd ~/projects/booking-app/auth-booking-app; docker-compose up' C-m 
     tmux splitw -h 
-    tmux send-keys -t 'Auth' 'cd ~/projects/booking-app/booking-app-auth; npm run start:dev' C-m 
+    tmux send-keys -t 'Auth' 'cd ~/projects/booking-app/auth-booking-app; npm run start:dev' C-m 
 fi
 
 # Attach Session, on the Main window
