@@ -15,6 +15,7 @@ then
     tmux send-keys -t 'Aux' 'zsh' C-m 'clear' C-m
     tmux send-keys -t 'Aux' 'tmux source ~/.config/tmux/tmux.conf' C-m 'clear' C-m 
     tmux send-keys -t 'Aux' 'vim' C-m ':q' C-m
+    tmux send-keys -t 'Aux' 'code .' C-m
 
     tmux new-window -t $SESSION:1 -n 'Front'
     tmux send-keys -t 'Front' 'cd ~/projects/booking-app/front-booking-app; npm run dev' C-m 

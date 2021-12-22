@@ -10,11 +10,29 @@ datasource db {
   url      = env("DATABASE_URL")
 }
 
+model LocationUser {
+  locationUserId     Int           @id @default(autoincrement())
+  userId             Int
+  isActive           Boolean
+  Reservations       Reservation[]
+  Location           Location      @relation(fields: [locationLocationId], references: [locationId])
+  locationLocationId Int
+}
+
+model CompanyUser {
+  companyUserId    Int     @id @default(autoincrement())
+  userId           Int     @unique
+  isActive         Boolean
+  Company          Company @relation(fields: [companyCompanyId], references: [companyId])
+  companyCompanyId Int
+}
+
 model Company {
   companyId Int           @id @default(autoincrement())
   name      String
   address   String?
   email     String?
+  isActive  Boolean       @default(true)
   managers  CompanyUser[]
   locations Location[]
 }
@@ -48,23 +66,6 @@ enum UserType {
   patient  @map("Patient")
   client   @map("Client")
   guest    @map("Guest")
-}
-
-model LocationUser {
-  locationUserId     Int           @id @default(autoincrement())
-  userId             Int
-  isActive           Boolean
-  Reservations       Reservation[]
-  Location           Location      @relation(fields: [locationLocationId], references: [locationId])
-  locationLocationId Int
-}
-
-model CompanyUser {
-  companyUserId    Int     @id @default(autoincrement())
-  userId           Int     @unique
-  isActive         Boolean
-  Company          Company @relation(fields: [companyCompanyId], references: [companyId])
-  companyCompanyId Int
 }
 
 model Reservation {
